@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ |
+        async)!.matches ? 'over' : 'side' " [opened]="!(isHandset$ | async)!.matches">
+        <mat-toolbar>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+            </button>
+            <!-- <span >Big Boardz</span> -->
+            <img src="https://ipfs.io/ipfs/QmS8txtbA5bLif4WgqSffoxSMLrZKcW2inRBC3uUyNcAey?filename=favicon-32x32.png" alt="BigBoardz Logo" *ngIf="drawer.opened">
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="['openboardz']" (click)="drawer.close()">Open Boardz</a>
+            <a mat-list-item [routerLink]="['mysquarez']" (click)="drawer.close()">My Squarez</a>
+            <a mat-list-item [routerLink]="['profile']" (click)="drawer.close()">My Profile</a>
+            <a mat-list-item [routerLink]="['host']" (click)="drawer.close()">Host</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="!drawer.opened">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <img src="https://ipfs.io/ipfs/QmS8txtbA5bLif4WgqSffoxSMLrZKcW2inRBC3uUyNcAey?filename=favicon-32x32.png"
+                alt="BigBoardz Logo" *ngIf="!drawer.opened">
+            <span *ngIf="!drawer.opened">Big Boardz</span>
+            <span class="example-spacer"></span>
+            <button mat-raised-button class="button" (click)="connectToWallet()">
+                Connect Wallet
+            </button>
+            <span style='color:red;margin-right:1.25em; display:inline-block;'>&nbsp;</span>
+            <!-- <button *ngIf="auth.user$ | async as user;" class="button" mat-raised-button
+                (click)="auth.signOut()">logout</button> -->
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
